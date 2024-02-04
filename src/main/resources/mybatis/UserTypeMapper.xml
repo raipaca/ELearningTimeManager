@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.raipaca.app.dao.UserTypeDao">
+	<select id="selectAllUserType" resultType="com.raipaca.app.domain.UserType">
+		SELECT
+			uesr_type.id,
+			uesr_type.name
+		FROM
+			uesr_type
+	</select>
+</mapper>

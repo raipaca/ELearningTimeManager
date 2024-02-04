@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+<title>eラーニング受講時間自己管理Webシステム</title>
+</head>
+<body id="addUser">
+  <div class="text-center mt-4">
+    <h1 class="h4">eラーニング受講時間自己管理Webシステム</h1>
+    <h2 class="h5 mt-4">利用者の追加</h2>
+        <form class="form" action="" method="post" th:object="${user}">
+          <p class="mt-2">
+            <input type="text" th:field="*{name}" placeholder="氏名">
+            <small th:errors="*{name}" class="error"></small>
+          </p>
+          <p class="mt-2">
+            <input type="text" th:field="*{loginId}" placeholder="ログインID">
+            <small th:errors="*{loginId}" class="error"></small>
+          </p>
+          <p class="mt-2">
+            <input type="text" th:field="*{loginPass}" placeholder="パスワード">
+            <small th:errors="*{loginPass}" class="error"></small>
+          </p>
+          <p class="mt-2">
+            利用者種別：<select th:field="*{typeId}">
+              <option th:each="type : ${userType}" th:value="${type.id}">[[${type.name}]]</option>
+            </select>
+          </p>
+          <p class="mt-2">
+            <input class="btn btn-primary" type="submit" value="登録">
+          </p>
+          <a th:href="@{/login}" class="btn btn-light">キャンセル</a>
+        </form>
+  </div>
+  <script th:src="@{/js/jquery-3.5.1.min.js}"></script>
+  <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
