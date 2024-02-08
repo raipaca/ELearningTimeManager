@@ -44,12 +44,6 @@ public class LearningController {
 
 	@PostMapping("/start")
 	public String startLearningPost(@Valid LearningHour lrngHour, Errors errors, Model model, HttpSession session) throws Exception {
-//		User user = userService.getUserById((Integer) session.getAttribute("id"));
-//		model.addAttribute("userName", user.getName());
-//		LearningHours lrngHours = new LearningHours();
-//		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-//		lrngHours.setDateTimeForDisplay(LocalDateTime.now().format(dtf));
-//		model.addAttribute("learningHours", lrngHours);
 		// TODO 修了時刻が入力されていないのがないか確認
 		int userId = (Integer) session.getAttribute("id");
 		if (Objects.isNull(lrngHourService.getDoNotEnd(userId, lrngHour.getStartDate()))) {
@@ -59,7 +53,7 @@ public class LearningController {
 			errors.reject("error.end_date_blank"); // TODO グローバルエラーが表示されない？
 			return "startLearning";
 		}
-		// TODO DBに登録
+		// 形式を整えてDBに登録
 		lrngHour.setUserId(userId);
 		lrngHour.setDateTimeForDisplay(lrngHour.getDateTimeForDisplay().replaceAll("[-T]", ""));
 		lrngHour.setStartDate(lrngHour.getDateTimeForDisplay().substring(0, 8));
