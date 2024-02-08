@@ -29,13 +29,13 @@ public class LoginController {
 	private LearningHourService lrngHourService;
 
 	@GetMapping
-	public String showLoginGet(Model model) throws Exception {
+	public String loginGet(Model model) throws Exception {
 		model.addAttribute("user", new User());
 		return "login";
 	}
 
 	@PostMapping
-	public String showLoginPost(@Valid User user, Errors errors, Model model, HttpSession session) throws Exception {
+	public String loginPost(@Valid User user, Errors errors, Model model, HttpSession session) throws Exception {
 		if (errors.hasErrors()) {
 			return "login";
 		}
@@ -50,6 +50,12 @@ public class LoginController {
 			return "redirect:learning/end";
 		}
 		return "redirect:learning/start";
+	}
+
+	@GetMapping("/logout")
+	public String logoutGet(Model model, HttpSession session) throws Exception {
+		session.invalidate();
+		return "logout";
 	}
 
 }
