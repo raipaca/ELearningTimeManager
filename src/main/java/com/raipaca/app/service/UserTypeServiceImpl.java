@@ -15,8 +15,13 @@ public class UserTypeServiceImpl implements UserTypeService {
 	UserTypeDao userTypeDao;
 
 	@Override
-	public List<UserType> selectAllUserType() throws Exception {
+	public List<UserType> getAllUserType() throws Exception {
 		return userTypeDao.selectAllUserType();
+	}
+
+	@Override
+	public UserType getUserType(int typeId) throws Exception {
+		return userTypeDao.selectUserType(typeId);
 	}
 
 }

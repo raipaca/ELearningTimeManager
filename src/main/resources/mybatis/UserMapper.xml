@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.raipaca.app.dao.UserDao">
+	<select id="selectByLoginId" parameterType="String" resultType="com.raipaca.app.domain.User">
+		SELECT
+			users.id,
+			users.name,
+			users.login_id AS loginId,
+			users.login_pass AS loginPass,
+			users.type_id AS typeId,
+			users.registered,
+			users.status
+		FROM
+			users
+		WHERE
+			users.login_id = #{loginId}
+	</select>
+	<select id="selectById" parameterType="Integer" resultType="com.raipaca.app.domain.User">
+		SELECT
+			users.id,
+			users.name,
+			users.login_id AS loginId,
+			users.login_pass AS loginPass,
+			users.type_id AS typeId,
+			users.registered,
+			users.status
+		FROM
+			users
+		WHERE
+			users.id = #{id}
+	</select>
+	<insert id="insertUser" parameterType="com.raipaca.app.domain.User">
+		INSERT INTO users (name, login_id, login_pass, type_id, registered, status)
+		VALUES (#{name}, #{loginId}, #{loginPass}, #{typeId}, NOW(), 'ACT')
+	</insert>
+</mapper>

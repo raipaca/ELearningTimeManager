@@ -8,4 +8,13 @@
 		FROM
 			uesr_type
 	</select>
+	<select id="selectUserType" parameterType="int" resultType="com.raipaca.app.domain.UserType">
+		SELECT
+			uesr_type.id,
+			uesr_type.name
+		FROM
+			uesr_type
+		WHERE
+			uesr_type.id = #{typeId}
+	</select>
 </mapper>

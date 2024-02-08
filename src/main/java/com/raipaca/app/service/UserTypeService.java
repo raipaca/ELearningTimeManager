@@ -6,6 +6,8 @@ import com.raipaca.app.domain.UserType;
 
 public interface UserTypeService {
 
-	List<UserType> selectAllUserType() throws Exception;
+	List<UserType> getAllUserType() throws Exception;
+
+	UserType getUserType(int typeId) throws Exception;
 
 }

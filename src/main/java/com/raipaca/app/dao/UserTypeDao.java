@@ -11,4 +11,6 @@ public interface UserTypeDao {
 
 	List<UserType> selectAllUserType() throws Exception;
 
+	UserType selectUserType(int typeId) throws Exception;
+
 }
