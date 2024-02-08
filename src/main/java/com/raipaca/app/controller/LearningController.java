@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -43,10 +44,11 @@ public class LearningController {
 	}
 
 	@PostMapping("/start")
-	public String startLearningPost(@Valid LearningHour lrngHour, Errors errors, Model model, HttpSession session) throws Exception {
-		// TODO 修了時刻が入力されていないのがないか確認
+	public String startLearningPost(@Valid LearningHour lrngHour,
+			Errors errors, Model model, HttpSession session) throws Exception {
+		// 終了時刻が入力されていないのがないか確認
 		int userId = (Integer) session.getAttribute("id");
-		if (Objects.isNull(lrngHourService.getDoNotEnd(userId, lrngHour.getStartDate()))) {
+		if (!Objects.isNull(lrngHourService.getDoNotEnd(userId, lrngHour.getStartDate()))) {
 			model.addAttribute("learningHours", lrngHour);
 			User user = userService.getUserById((Integer) session.getAttribute("id"));
 			model.addAttribute("userName", user.getName());
@@ -59,6 +61,20 @@ public class LearningController {
 		lrngHour.setStartDate(lrngHour.getDateTimeForDisplay().substring(0, 8));
 		lrngHour.setStartTime(Time.valueOf(lrngHour.getDateTimeForDisplay().substring(8, 13) + ":00"));
 		lrngHourService.setStartDateTime(lrngHour);
+		return "redirect:list";
+	}
+
+	@GetMapping("/list")
+	public String learningListGet(Model model, HttpSession session) throws Exception {
+		User user = userService.getUserById((Integer) session.getAttribute("id"));
+		model.addAttribute("userName", user.getName());
+		model.addAttribute("learningList", lrngHourService.getLearningList(user.getId()));
+		return "learningList";
+	}
+
+	@GetMapping("/delete/{id}")
+	public String learningDataDelete(@PathVariable int listId, Model model) throws Exception {
+		lrngHourService.deleteLearningData(listId);
 		return "redirect:list";
 	}
 
