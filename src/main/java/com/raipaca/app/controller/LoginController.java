@@ -1,5 +1,6 @@
 package com.raipaca.app.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.raipaca.app.domain.User;
+import com.raipaca.app.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -16,8 +18,8 @@ import jakarta.validation.Valid;
 @RequestMapping
 public class LoginController {
 
-//	@Autowired
-//	private StudentService studentService;
+	@Autowired
+	private UserService userService;
 
 	@GetMapping
 	public String showLoginGet(Model model) throws Exception {
@@ -30,12 +32,13 @@ public class LoginController {
 		if (errors.hasErrors()) {
 			return "login";
 		}
-//		if (!studentService.isCorrectIdAndPassword(student.getLoginId(), student.getLoginPass())) {
-//			errors.rejectValue("statusMessage", "error.incorrect_id_password");
-//			return "login-student";
-//		}
-//		session.setAttribute("loginId", student.getLoginId());
-		return "redirect:rental";
+		if (!userService.isCorrectLoginIdAndPassword(user.getLoginId(), user.getLoginPass())) {
+			errors.reject("error.incorrect_id_password");
+			return "login";
+		}
+		user = userService.getUserByLoginId(user.getLoginId());
+		session.setAttribute("id", user.getId());
+		return "redirect:learning/start";
 	}
 
 }
