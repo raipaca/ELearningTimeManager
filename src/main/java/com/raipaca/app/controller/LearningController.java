@@ -72,10 +72,10 @@ public class LearningController {
 		return "learningList";
 	}
 
-	@GetMapping("/delete/{id}")
-	public String learningDataDelete(@PathVariable int listId, Model model) throws Exception {
+	@GetMapping("/delete/{listId}")
+	public String learningDataDelete(@PathVariable Integer listId, Model model) throws Exception {
 		lrngHourService.deleteLearningData(listId);
-		return "redirect:list";
+		return "learningList";
 	}
 
 }

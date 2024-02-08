@@ -27,6 +27,6 @@
 			user_id = #{userId}
 	</select>
 	<delete id="deleteLearningData" parameterType="int">
-		DELETE FROM learning_hours WHERE id = #{listId});
+		DELETE FROM learning_hours WHERE id = #{listId};
 	</delete>
 </mapper>

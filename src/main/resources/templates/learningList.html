@@ -28,10 +28,10 @@
     </tr>
     <tr th:each="lrngList : ${learningList}">
       <td>[[${lrngList.dateTimeForDisplay}]]</td>
-      <td>[[${lrngList.startTime}]]</td>
-      <td>[[${lrngList.endTime}]]</td>
+      <td>[[${lrngList.startTime}]]<!--/* TODO 編集ボタンを追加 */--></td>
+      <td>[[${lrngList.endTime}]]<!--/* TODO 編集ボタンを追加 */--></td>
       <td>[[${lrngList.learntingTime}]]</td>
-      <td><a th:href="@{/learning/delete/{id}(id=${lrngList.id})}" class="btn btn-danger btn-sm delete">削除</a></td>
+      <td><a th:href="@{/learning/delete/{listId}(listId=${lrngList.id})}" class="btn btn-danger btn-sm delete">削除</a></td>
     </tr>
   </table>
   <!--/* TODO ページネーションを追加 */-->
