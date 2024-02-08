@@ -28,7 +28,7 @@ public class LoginController {
 	}
 
 	@PostMapping
-	public String showLoginGet(@Valid User user, Errors errors, Model model, HttpSession session) throws Exception {
+	public String showLoginPost(@Valid User user, Errors errors, Model model, HttpSession session) throws Exception {
 		if (errors.hasErrors()) {
 			return "login";
 		}
