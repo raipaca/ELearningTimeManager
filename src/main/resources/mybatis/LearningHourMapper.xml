@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.raipaca.app.dao.LearningHourDao">
+	<select id="selectDoNotEnd" resultType="com.raipaca.app.domain.LearningHour">
+		SELECT * FROM learning_hours
+		WHERE user_id = #{userId}
+		AND start_date = #{startDate}
+		AND end_date IS NULL
+	</select>
+	<insert id="insertStartDateTime" parameterType="com.raipaca.app.domain.LearningHour">
+		INSERT INTO learning_hours (user_id, start_date, start_time)
+		VALUES (#{userId}, #{startDate}, #{startTime})
+	</insert>
+</mapper>

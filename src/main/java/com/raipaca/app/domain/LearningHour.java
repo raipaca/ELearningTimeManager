@@ -5,9 +5,13 @@ import java.sql.Time;
 import lombok.Data;
 
 @Data
-public class LearningHours {
+public class LearningHour {
 
 	private Integer id;
+
+	private Integer userId;
+
+	private String dateTimeForDisplay;
 
 	private String startDate;
 
