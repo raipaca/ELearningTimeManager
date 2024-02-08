@@ -34,4 +34,9 @@ public class LearningHourServiceImpl implements LearningHourService {
 		lrngHourDao.deleteLearningData(listId);
 	}
 
+	@Override
+	public void setEndDateTime(LearningHour lrngHour) throws Exception {
+		lrngHourDao.updateEndDateTime(lrngHour);
+	}
+
 }

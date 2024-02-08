@@ -2,6 +2,7 @@ package com.raipaca.app.controller;
 
 import java.sql.Time;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
@@ -37,7 +38,7 @@ public class LearningController {
 		User user = userService.getUserById((Integer) session.getAttribute("id"));
 		model.addAttribute("userName", user.getName());
 		LearningHour lrngHour = new LearningHour();
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		lrngHour.setDateTimeForDisplay(LocalDateTime.now().format(dtf));
 		model.addAttribute("learningHours", lrngHour);
 		return "startLearning";
@@ -76,6 +77,41 @@ public class LearningController {
 	public String learningDataDelete(@PathVariable Integer listId, Model model) throws Exception {
 		lrngHourService.deleteLearningData(listId);
 		return "learningList";
+	}
+
+	@GetMapping("/end")
+	public String endLearningGet(Model model, HttpSession session) throws Exception {
+		User user = userService.getUserById((Integer) session.getAttribute("id"));
+		model.addAttribute("userName", user.getName());
+		model.addAttribute("learningList", lrngHourService.getLearningList(user.getId()));
+		LearningHour lrngHour = new LearningHour();
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		lrngHour.setDateTimeForDisplay(LocalDateTime.now().format(dtf));
+		model.addAttribute("learningHours", lrngHour);
+		return "endLearning";
+	}
+
+	@PostMapping("/end")
+	public String endLearningPost(@Valid LearningHour lrngHour,
+			Errors errors, Model model, HttpSession session) throws Exception {
+		// 終了時刻が入力されていないデータを更新
+		lrngHour.setUserId((Integer) session.getAttribute("id"));
+		String dateTimeForDisplay = lrngHour.getDateTimeForDisplay().replaceAll("[-T]", "");
+		String dateForDisplay = dateTimeForDisplay.substring(0, 8);
+		String timeForDisplay = dateTimeForDisplay.substring(8, 16);
+		lrngHour = lrngHourService.getDoNotEnd(lrngHour.getUserId(), dateForDisplay); // id取得
+		// 形式を整えてDBに登録
+		lrngHour.setEndDate(dateForDisplay);
+		lrngHour.setEndTime(Time.valueOf(timeForDisplay));
+		// LocalTimeを利用して受講時間を算出する
+		LocalTime lt = LocalTime.parse(timeForDisplay);
+		String startTime = lrngHour.getStartTime().toString();
+		lt = lt.minusHours(Integer.parseInt(startTime.substring(0, 2)));
+		lt = lt.minusMinutes(Integer.parseInt(startTime.substring(3, 5)));
+		lt = lt.minusSeconds(Integer.parseInt(startTime.substring(6, 8)));
+		lrngHour.setLearntingTime(Time.valueOf(lt));
+		lrngHourService.setEndDateTime(lrngHour);
+		return "redirect:list";
 	}
 
 }

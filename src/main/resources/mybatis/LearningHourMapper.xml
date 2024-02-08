@@ -29,4 +29,9 @@
 	<delete id="deleteLearningData" parameterType="int">
 		DELETE FROM learning_hours WHERE id = #{listId};
 	</delete>
+	<update id="updateEndDateTime" parameterType="com.raipaca.app.domain.LearningHour">
+		UPDATE learning_hours
+		SET end_date = #{endDate}, end_time = #{endTime}, learnting_time = #{learntingTime}
+		WHERE id = #{id}
+	</update>
 </mapper>

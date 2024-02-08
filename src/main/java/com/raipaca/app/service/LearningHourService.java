@@ -14,4 +14,6 @@ public interface LearningHourService {
 
 	void deleteLearningData(int listId) throws Exception;
 
+	void setEndDateTime(LearningHour lrngHour) throws Exception;
+
 }

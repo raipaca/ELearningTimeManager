@@ -18,4 +18,6 @@ public interface LearningHourDao {
 
 	void deleteLearningData(int listId) throws Exception;
 
+	void updateEndDateTime(LearningHour lrngHour) throws Exception;
+
 }
