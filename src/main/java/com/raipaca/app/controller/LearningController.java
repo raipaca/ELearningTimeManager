@@ -41,7 +41,7 @@ public class LearningController {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		lrngHour.setDateTimeForDisplay(LocalDateTime.now().format(dtf));
 		model.addAttribute("learningHours", lrngHour);
-		return "startLearning";
+		return "learningStart";
 	}
 
 	@PostMapping("/start")
@@ -54,7 +54,7 @@ public class LearningController {
 			User user = userService.getUserById((Integer) session.getAttribute("id"));
 			model.addAttribute("userName", user.getName());
 			errors.reject("error.end_date_blank"); // TODO グローバルエラーが表示されない？
-			return "startLearning";
+			return "learningStart";
 		}
 		// 形式を整えてDBに登録
 		lrngHour.setUserId(userId);
@@ -88,7 +88,7 @@ public class LearningController {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		lrngHour.setDateTimeForDisplay(LocalDateTime.now().format(dtf));
 		model.addAttribute("learningHours", lrngHour);
-		return "endLearning";
+		return "learningEnd";
 	}
 
 	@PostMapping("/end")
