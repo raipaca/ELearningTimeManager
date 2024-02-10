@@ -21,7 +21,7 @@
       <td><a th:href="@{/learning/delete/{listId}(listId=${lrngList.id})}" class="btn btn-danger btn-sm delete">削除</a></td>
     </tr>
   </table>
-  <!--/* TODO ページネーションを追加 */-->
+  <div th:replace="~{parts/widget :: pagination(totalPages=${totalPages}, page=${currentPage}, baseUrl='/learning/list')}"></div>
 </div>
 <th:block th:replace="~{parts/common :: javascripts()}"></th:block>
 </body>

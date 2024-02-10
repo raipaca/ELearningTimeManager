@@ -16,4 +16,9 @@ public interface LearningHourService {
 
 	void setEndDateTime(LearningHour lrngHour) throws Exception;
 
+	// ページ分割機能用
+	int getTotalPagesByUserId(int userId, int numPerPage) throws Exception;
+
+	// ページ分割機能用
+	List<LearningHour> getLearningListPageByUserId(int userId, int page, int numPerPage) throws Exception;
 }

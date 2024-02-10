@@ -2,8 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.raipaca.app.dao.LearningHourDao">
 	<select id="selectDoNotEnd" resultType="com.raipaca.app.domain.LearningHour">
-		SELECT * FROM learning_hours
-		WHERE user_id = #{userId}
+		SELECT
+			id,
+			user_id AS userId,
+			date_format(start_date, '%Y年%m月%d日') AS dateTimeForDisplay,
+			start_date AS startDate,
+			start_time AS startTime,
+			end_date AS endDate,
+			end_time AS endTime,
+			learnting_time AS learntingTime
+		FROM
+			learning_hours
+		WHERE
+			user_id = #{userId}
 		AND start_date = #{startDate}
 		AND end_date IS NULL
 	</select>
@@ -14,13 +25,13 @@
 	<select id="selectLearningList" resultType="com.raipaca.app.domain.LearningHour">
 		SELECT
 			id,
-			user_id,
+			user_id AS userId,
 			date_format(start_date, '%Y年%m月%d日') AS dateTimeForDisplay,
-			start_date,
-			start_time,
-			end_date,
-			end_time,
-			learnting_time
+			start_date AS startDate,
+			start_time AS startTime,
+			end_date AS endDate,
+			end_time AS endTime,
+			learnting_time AS learntingTime
 		FROM
 			learning_hours
 		WHERE
@@ -34,4 +45,23 @@
 		SET end_date = #{endDate}, end_time = #{endTime}, learnting_time = #{learntingTime}
 		WHERE id = #{id}
 	</update>
+	<select id="countByUserId" resultType="long">
+		SELECT COUNT(*) FROM learning_hours WHERE user_id = #{userId}
+	</select>
+	<select id="selectLimitedByUserId" resultType="com.raipaca.app.domain.LearningHour">
+		SELECT
+			id,
+			user_id AS userId,
+			date_format(start_date, '%Y年%m月%d日') AS dateTimeForDisplay,
+			start_date AS startDate,
+			start_time AS startTime,
+			end_date AS endDate,
+			end_time AS endTime,
+			learnting_time AS learntingTime
+		FROM
+			learning_hours
+		WHERE
+			user_id = #{userId}
+		LIMIT #{offset}, #{num}
+	</select>
 </mapper>

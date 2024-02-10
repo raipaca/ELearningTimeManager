@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.raipaca.app.domain.LearningHour;
 import com.raipaca.app.domain.User;
@@ -27,9 +28,12 @@ import jakarta.validation.Valid;
 @RequestMapping("/learning")
 public class LearningController {
 
+	// 1ページ当たりの表示数
+	private static final int NUM_PER_PAGE = 7;
+
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private LearningHourService lrngHourService;
 
@@ -45,8 +49,8 @@ public class LearningController {
 	}
 
 	@PostMapping("/start")
-	public String startLearningPost(@Valid LearningHour lrngHour,
-			Errors errors, Model model, HttpSession session) throws Exception {
+	public String startLearningPost(@Valid LearningHour lrngHour, Errors errors, Model model, HttpSession session)
+			throws Exception {
 		// 終了時刻が入力されていないのがないか確認
 		int userId = (Integer) session.getAttribute("id");
 		if (!Objects.isNull(lrngHourService.getDoNotEnd(userId, lrngHour.getStartDate()))) {
@@ -66,10 +70,14 @@ public class LearningController {
 	}
 
 	@GetMapping("/list")
-	public String learningListGet(Model model, HttpSession session) throws Exception {
+	public String learningListGet(@RequestParam(name = "page", defaultValue = "1") Integer page, Model model,
+			HttpSession session) throws Exception {
 		User user = userService.getUserById((Integer) session.getAttribute("id"));
 		model.addAttribute("userName", user.getName());
-		model.addAttribute("learningList", lrngHourService.getLearningList(user.getId()));
+		model.addAttribute("learningList",
+				lrngHourService.getLearningListPageByUserId(user.getId(), page, NUM_PER_PAGE));
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", lrngHourService.getTotalPagesByUserId(user.getId(), NUM_PER_PAGE));
 		return "learningList";
 	}
 
@@ -92,8 +100,8 @@ public class LearningController {
 	}
 
 	@PostMapping("/end")
-	public String endLearningPost(@Valid LearningHour lrngHour,
-			Errors errors, Model model, HttpSession session) throws Exception {
+	public String endLearningPost(@Valid LearningHour lrngHour, Errors errors, Model model, HttpSession session)
+			throws Exception {
 		// 終了時刻が入力されていないデータを更新
 		lrngHour.setUserId((Integer) session.getAttribute("id"));
 		String dateTimeForDisplay = lrngHour.getDateTimeForDisplay().replaceAll("[-T]", "");

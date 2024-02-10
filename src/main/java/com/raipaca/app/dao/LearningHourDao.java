@@ -20,4 +20,11 @@ public interface LearningHourDao {
 
 	void updateEndDateTime(LearningHour lrngHour) throws Exception;
 
+	// ページ分割機能用
+	Long countByUserId(int userId) throws Exception;
+
+	// ページ分割機能用
+	List<LearningHour> selectLimitedByUserId(@Param("userId") int userId, @Param("offset") int offset,
+			@Param("num") int num) throws Exception;
+
 }

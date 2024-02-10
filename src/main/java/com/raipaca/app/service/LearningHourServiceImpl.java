@@ -39,4 +39,16 @@ public class LearningHourServiceImpl implements LearningHourService {
 		lrngHourDao.updateEndDateTime(lrngHour);
 	}
 
+	@Override
+	public int getTotalPagesByUserId(int userId, int numPerPage) throws Exception {
+		double totalNum = (double) lrngHourDao.countByUserId(userId);
+		return (int) Math.ceil(totalNum / numPerPage);
+	}
+
+	@Override
+	public List<LearningHour> getLearningListPageByUserId(int userId, int page, int numPerPage) throws Exception {
+		int offset = numPerPage * (page - 1);
+		return lrngHourDao.selectLimitedByUserId(userId, offset, numPerPage);
+	}
+
 }
