@@ -2,14 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ja">
 <head th:replace="~{parts/common :: html_head()}"></head>
 <body id="startLearning">
-<header>
-  <nav class="navbar navbar-light bg-light">
-    <a class="navbar-brand" href="">eラーニング受講時間自己管理Webシステム</a>
-    <ul class="navbar-nav">
-      <li class="nav-item">[[${userName}]] [<a th:href="@{/logout}">ログアウト</a>]
-    </ul>
-  </nav>
-</header>
+<header th:replace="~{parts/widget :: header()}"></header>
 <div class="col-md-12">
   <h1 class="my-4 h5">受講時間一覧</h1>
   <table class="table table-bordered">
