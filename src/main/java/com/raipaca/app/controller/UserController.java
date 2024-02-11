@@ -40,7 +40,7 @@ public class UserController {
 			model.addAttribute("userType", userTypeService.getAllUserType());
 			return "addUser";
 		}
-		if (userService.getUserByLoginId(user.getLoginId()) == null) {
+		if (userService.getUserByLoginId(user.getLoginId()) != null) {
 			model.addAttribute("user", user);
 			model.addAttribute("userType", userTypeService.getAllUserType());
 			if (user.getName().equals("")) {
