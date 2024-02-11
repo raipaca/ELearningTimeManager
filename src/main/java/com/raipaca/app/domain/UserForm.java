@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class User {
+public class UserForm {
 
 	private Integer id;
 
@@ -29,5 +29,11 @@ public class User {
 	private Date updated;
 
 	private String status;
+
+	@Size(max = 10)
+	private String changeLoginPass;
+
+	@Size(max = 10)
+	private String checkLoginPass;
 
 }

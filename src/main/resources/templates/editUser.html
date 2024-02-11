@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head th:replace="~{parts/common :: html_head()}"></head>
+<body id="editUser">
+<header th:replace="~{parts/widget :: header()}"></header>
+  <div class="text-center mt-4">
+    <h2 class="h5 mt-4">利用者編集</h2>
+    <th:block th:object="${userForm}">
+      <p th:errors="*{name}" class="error"></p>
+      <p th:errors="*{loginId}" class="error"></p>
+      <p th:errors="*{loginPass}" class="error"></p>
+      <div th:if="${#fields.hasGlobalErrors()}">
+        <p class="error" th:each="error : ${#fields.globalErrors()}" th:text="${error}"></p>
+      </div>
+    </th:block>
+    <form class="form" action="" method="post" th:object="${userForm}">
+      <p class="mt-2">
+        氏　　名　：<input type="text" th:field="*{name}" placeholder="氏名">
+      </p>
+      <p class="mt-2">
+        ログインID：<input type="text" th:field="*{loginId}" placeholder="ログインID">
+      </p>
+      <p class="mt-2">
+        パスワード：<input type="text" th:field="*{loginPass}" placeholder="現在のパスワード">
+      </p>
+      <p class="mt-2">
+        利用者種別：
+        <select th:field="*{typeId}">
+          <option th:each="type : ${userType}" th:value="${type.id}">[[${type.name}]]</option>
+        </select>
+      </p>
+      <p class="mt-2">
+        変更したいパスワード：<input type="text" th:field="*{changeLoginPass}">
+      </p>
+      <p class="mt-2">
+        変更したいパスワードを再入力：<input type="text" th:field="*{checkLoginPass}">
+      </p>
+      <p class="mt-2">
+        <input class="btn btn-primary" type="submit" value="更新">
+      </p>
+      <a th:href="@{/learning/list}" class="btn btn-light">キャンセル</a>
+    </form>
+  </div>
+<th:block th:replace="~{parts/common :: javascripts()}"></th:block>
+</body>
+</html>

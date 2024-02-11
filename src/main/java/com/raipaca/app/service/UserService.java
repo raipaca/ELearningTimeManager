@@ -1,6 +1,7 @@
 package com.raipaca.app.service;
 
 import com.raipaca.app.domain.User;
+import com.raipaca.app.domain.UserForm;
 
 public interface UserService {
 
@@ -11,5 +12,7 @@ public interface UserService {
 	User getUserById(Integer id) throws Exception;
 
 	void addUser(User user) throws Exception;
+
+	void editUser(UserForm userForm) throws Exception;
 
 }

@@ -3,6 +3,7 @@ package com.raipaca.app.dao;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.raipaca.app.domain.User;
+import com.raipaca.app.domain.UserForm;
 
 @Mapper
 public interface UserDao {
@@ -13,8 +14,8 @@ public interface UserDao {
 
 	void insertUser(User user) throws Exception;
 
-	void updateUser(User user) throws Exception;
-
 	void deleteUser(User user) throws Exception;
+
+	void updateUser(UserForm userForm) throws Exception;
 
 }

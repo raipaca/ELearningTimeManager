@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.raipaca.app.dao.UserDao;
 import com.raipaca.app.domain.User;
+import com.raipaca.app.domain.UserForm;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -43,6 +44,11 @@ public class UserServiceImpl implements UserService {
 	public void addUser(User user) throws Exception {
 		user.setLoginPass(BCrypt.hashpw(user.getLoginPass(), BCrypt.gensalt(10)));
 		userDao.insertUser(user);
+	}
+
+	@Override
+	public void editUser(UserForm userForm) throws Exception {
+		userDao.updateUser(userForm);
 	}
 
 }

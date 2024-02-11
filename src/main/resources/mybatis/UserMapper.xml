@@ -33,4 +33,9 @@
 		INSERT INTO users (name, login_id, login_pass, type_id, registered, status)
 		VALUES (#{name}, #{loginId}, #{loginPass}, #{typeId}, NOW(), 'ACT')
 	</insert>
+	<update id="updateUser" parameterType="com.raipaca.app.domain.UserForm">
+		UPDATE users
+		SET name = #{name}, login_id = #{loginId}, login_pass = #{loginPass}, type_id = #{typeId}, updated = NOW()
+		WHERE id = #{id}
+	</update>
 </mapper>
