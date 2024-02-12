@@ -99,14 +99,8 @@ public class UserController {
 			model.addAttribute("userType", userTypeService.getAllUserType());
 			return "editUser";
 		}
-		if (userForm.getName().equals("")) {
-			model.addAttribute("userForm", userForm);
-			model.addAttribute("userType", userTypeService.getAllUserType());
-			errors.rejectValue("name", "error.user_name_blank");
-		}
 		session.setAttribute("userForm", userForm);
 		session.setAttribute("loginPass", userForm.getLoginPass());
-		System.out.println(userForm.getTypeId());
 		userService.editUser(userForm);
 		return "redirect:edit/done";
 	}
