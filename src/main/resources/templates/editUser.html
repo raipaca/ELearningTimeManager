@@ -5,6 +5,9 @@
 <header th:replace="~{parts/widget :: header()}"></header>
   <div class="text-center mt-4">
     <h2 class="h5 mt-4">利用者編集</h2>
+    <div class="alert alert-success">
+      パスワードを変更しない場合は、利用者種別まで入力して更新してください。
+    </div>
     <th:block th:object="${userForm}">
       <p th:errors="*{name}" class="error"></p>
       <p th:errors="*{loginId}" class="error"></p>
