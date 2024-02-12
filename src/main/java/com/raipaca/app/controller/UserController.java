@@ -95,15 +95,21 @@ public class UserController {
 		if (userForm.getCheckLoginPass().equals("") && !userForm.getChangeLoginPass().equals("")) {
 			errors.rejectValue("changeLoginPass", "error.checkLoginPass_blank");
 		}
+		if (!userForm.getCheckLoginPass().equals(userForm.getChangeLoginPass())) {
+			errors.reject("error.different_loginPass");
+		}
 		if (errors.hasErrors()) {
 			model.addAttribute("userName", user.getName());
 			model.addAttribute("userForm", userForm);
 			model.addAttribute("userType", userTypeService.getAllUserType());
 			return "editUser";
 		}
+		userForm.setId(user.getId());
+		if (userForm.getChangeLoginPass().equals(userForm.getCheckLoginPass())) {
+			userForm.setLoginPass(userForm.getChangeLoginPass());
+		}
 		session.setAttribute("userForm", userForm);
 		session.setAttribute("loginPass", userForm.getLoginPass());
-		userForm.setId(user.getId());
 		userService.editUser(userForm);
 		return "redirect:edit/done";
 	}
