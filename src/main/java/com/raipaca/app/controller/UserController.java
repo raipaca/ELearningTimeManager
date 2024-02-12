@@ -91,6 +91,9 @@ public class UserController {
 		if (userForm.getChangeLoginPass().equals("") && !userForm.getCheckLoginPass().equals("")) {
 			errors.rejectValue("changeLoginPass", "error.changeLoginPass_blank");
 		}
+		if (userForm.getCheckLoginPass().equals("") && !userForm.getChangeLoginPass().equals("")) {
+			errors.rejectValue("changeLoginPass", "error.checkLoginPass_blank");
+		}
 		if (errors.hasErrors()) {
 			model.addAttribute("userForm", userForm);
 			model.addAttribute("userType", userTypeService.getAllUserType());

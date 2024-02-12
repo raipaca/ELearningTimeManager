@@ -10,6 +10,7 @@
       <p th:errors="*{loginId}" class="error"></p>
       <p th:errors="*{loginPass}" class="error"></p>
       <p th:errors="*{changeLoginPass}" class="error"></p>
+      <p th:errors="*{checkLoginPass}" class="error"></p>
       <div th:if="${#fields.hasGlobalErrors()}">
         <p class="error" th:each="error : ${#fields.globalErrors()}" th:text="${error}"></p>
       </div>
@@ -34,7 +35,7 @@
         変更したいパスワード：<input type="text" th:field="*{changeLoginPass}">
       </p>
       <p class="mt-2">
-        変更したいパスワードを再入力：<input type="text" th:field="*{checkLoginPass}">
+        変更したいパスワード（再入力）：<input type="text" th:field="*{checkLoginPass}">
       </p>
       <p class="mt-2">
         <input class="btn btn-primary" type="submit" value="更新">
