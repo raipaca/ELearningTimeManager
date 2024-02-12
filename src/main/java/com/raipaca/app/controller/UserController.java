@@ -85,6 +85,9 @@ public class UserController {
 
 	@PostMapping("/edit")
 	public String editUserPost(@Valid UserForm userForm, Errors errors, Model model, HttpSession session) throws Exception {
+		if (userForm.getName().equals("")) {
+			errors.rejectValue("name", "error.user_name_blank");
+		}
 		if (errors.hasErrors()) {
 			model.addAttribute("userForm", userForm);
 			model.addAttribute("userType", userTypeService.getAllUserType());
