@@ -85,6 +85,7 @@ public class UserController {
 
 	@PostMapping("/edit")
 	public String editUserPost(@Valid UserForm userForm, Errors errors, Model model, HttpSession session) throws Exception {
+		User user = userService.getUserById((Integer) session.getAttribute("id"));
 		if (userForm.getName().equals("")) {
 			errors.rejectValue("name", "error.user_name_blank");
 		}
@@ -95,7 +96,6 @@ public class UserController {
 			errors.rejectValue("changeLoginPass", "error.checkLoginPass_blank");
 		}
 		if (errors.hasErrors()) {
-			User user = userService.getUserById((Integer) session.getAttribute("id"));
 			model.addAttribute("userName", user.getName());
 			model.addAttribute("userForm", userForm);
 			model.addAttribute("userType", userTypeService.getAllUserType());
@@ -103,6 +103,7 @@ public class UserController {
 		}
 		session.setAttribute("userForm", userForm);
 		session.setAttribute("loginPass", userForm.getLoginPass());
+		userForm.setId(user.getId());
 		userService.editUser(userForm);
 		return "redirect:edit/done";
 	}

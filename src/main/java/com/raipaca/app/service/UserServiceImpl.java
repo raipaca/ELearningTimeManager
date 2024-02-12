@@ -48,6 +48,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void editUser(UserForm userForm) throws Exception {
+		userForm.setLoginPass(BCrypt.hashpw(userForm.getLoginPass(), BCrypt.gensalt(10)));
 		userDao.updateUser(userForm);
 	}
 
