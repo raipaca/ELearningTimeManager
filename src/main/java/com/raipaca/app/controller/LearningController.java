@@ -63,7 +63,7 @@ public class LearningController {
 		lrngHour.setUserId(userId);
 		lrngHour.setDateTimeForDisplay(lrngHour.getDateTimeForDisplay().replaceAll("[-T]", ""));
 		lrngHour.setStartDate(lrngHour.getDateTimeForDisplay().substring(0, 8));
-		lrngHour.setStartTime(Time.valueOf(lrngHour.getDateTimeForDisplay().substring(8, 13) + ":00"));
+		lrngHour.setStartTime(Time.valueOf(lrngHour.getDateTimeForDisplay().substring(8, 16)));
 		lrngHourService.setStartDateTime(lrngHour);
 		return "redirect:list";
 	}
