@@ -81,7 +81,7 @@ public class LearningController {
 	}
 
 	@GetMapping("/delete/{listId}")
-	public String learningDataDelete(@PathVariable Integer listId, Model model) throws Exception {
+	public String learningDataDeleteGet(@PathVariable Integer listId, Model model) throws Exception {
 		lrngHourService.deleteLearningData(listId);
 		return "learningList";
 	}
