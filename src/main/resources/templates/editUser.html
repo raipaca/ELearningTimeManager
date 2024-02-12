@@ -9,6 +9,7 @@
       <p th:errors="*{name}" class="error"></p>
       <p th:errors="*{loginId}" class="error"></p>
       <p th:errors="*{loginPass}" class="error"></p>
+      <p th:errors="*{changeLoginPass}" class="error"></p>
       <div th:if="${#fields.hasGlobalErrors()}">
         <p class="error" th:each="error : ${#fields.globalErrors()}" th:text="${error}"></p>
       </div>
