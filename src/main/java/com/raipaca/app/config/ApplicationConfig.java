@@ -33,7 +33,7 @@ public class ApplicationConfig implements WebMvcConfigurer {
 		bean.addUrlPatterns("/logout");
 		bean.addUrlPatterns("/learning/*");
 		bean.addUrlPatterns("/user/add/done");
-		bean.addUrlPatterns("/user/edit*");
+		bean.addUrlPatterns("/user/edit/*");
 		return bean;
 	}
 
