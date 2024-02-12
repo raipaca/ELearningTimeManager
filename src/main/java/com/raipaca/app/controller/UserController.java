@@ -84,7 +84,8 @@ public class UserController {
 	}
 
 	@PostMapping("/edit")
-	public String editUserPost(@Valid UserForm userForm, Errors errors, Model model, HttpSession session) throws Exception {
+	public String editUserPost(@Valid UserForm userForm, Errors errors, Model model, HttpSession session)
+			throws Exception {
 		User user = userService.getUserById((Integer) session.getAttribute("id"));
 		if (userForm.getName().equals("")) {
 			errors.rejectValue("name", "error.user_name_blank");
@@ -105,7 +106,8 @@ public class UserController {
 			return "editUser";
 		}
 		userForm.setId(user.getId());
-		if (userForm.getChangeLoginPass().equals(userForm.getCheckLoginPass())) {
+		if (userForm.getChangeLoginPass().equals(userForm.getCheckLoginPass())
+				&& !userForm.getCheckLoginPass().equals("")) {
 			userForm.setLoginPass(userForm.getChangeLoginPass());
 		}
 		session.setAttribute("userForm", userForm);
