@@ -57,7 +57,6 @@ public class LearningController {
 			model.addAttribute("learningHours", lrngHour);
 			User user = userService.getUserById((Integer) session.getAttribute("id"));
 			model.addAttribute("userName", user.getName());
-			errors.reject("error.end_date_blank"); // TODO グローバルエラーが表示されない？
 			return "learningStart";
 		}
 		// 形式を整えてDBに登録
