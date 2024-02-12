@@ -95,6 +95,8 @@ public class UserController {
 			errors.rejectValue("changeLoginPass", "error.checkLoginPass_blank");
 		}
 		if (errors.hasErrors()) {
+			User user = userService.getUserById((Integer) session.getAttribute("id"));
+			model.addAttribute("userName", user.getName());
 			model.addAttribute("userForm", userForm);
 			model.addAttribute("userType", userTypeService.getAllUserType());
 			return "editUser";
