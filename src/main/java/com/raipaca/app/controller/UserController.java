@@ -35,6 +35,9 @@ public class UserController {
 
 	@PostMapping("/add")
 	public String addUserPost(@Valid User user, Errors errors, Model model, HttpSession session) throws Exception {
+		if (user.getName().equals("")) {
+			errors.rejectValue("name", "error.user_name_blank");
+		}
 		if (errors.hasErrors()) {
 			model.addAttribute("user", user);
 			model.addAttribute("userType", userTypeService.getAllUserType());
@@ -43,9 +46,6 @@ public class UserController {
 		if (userService.getUserByLoginId(user.getLoginId()) != null) {
 			model.addAttribute("user", user);
 			model.addAttribute("userType", userTypeService.getAllUserType());
-			if (user.getName().equals("")) {
-				errors.rejectValue("name", "error.user_name_blank");
-			}
 			errors.reject("error.exist_login_id");
 			return "addUser";
 		}
