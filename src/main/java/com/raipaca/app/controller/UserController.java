@@ -38,6 +38,9 @@ public class UserController {
 		if (user.getName().equals("")) {
 			errors.rejectValue("name", "error.user_name_blank");
 		}
+		if (user.getName().length() > 10) {
+			errors.rejectValue("name", "error.user_name_size_message");
+		}
 		if (errors.hasErrors()) {
 			model.addAttribute("user", user);
 			model.addAttribute("userType", userTypeService.getAllUserType());

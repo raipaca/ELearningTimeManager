@@ -11,7 +11,6 @@ public class User {
 
 	private Integer id;
 
-	@Size(max = 10)
 	private String name;
 
 	@NotBlank
