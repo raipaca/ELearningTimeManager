@@ -6,13 +6,13 @@
 <div class="col-md-12">
   <div class="text-center mt-4">
     <h1 class="mt-4 h5">受講開始</h1>
-    <th:block th:object="${learningHours}">
+    <th:block th:object="${learningHour}">
       <div th:if="${#fields.hasGlobalErrors()}">
         <p class="error" th:each="error : ${#fields.globalErrors()}" th:text="${error}"></p>
       </div>
     </th:block>
     <div class="col-md-12">
-      <form class="form" action="" method="post" th:object="${learningHours}">
+      <form class="form" action="" method="post" th:object="${learningHour}">
         <div class="form-group">
           <input type="datetime-local" th:field="*{dateTimeForDisplay}" />
         </div>

@@ -44,26 +44,29 @@ public class LearningController {
 		LearningHour lrngHour = new LearningHour();
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		lrngHour.setDateTimeForDisplay(LocalDateTime.now().format(dtf));
-		model.addAttribute("learningHours", lrngHour);
+		model.addAttribute("learningHour", lrngHour);
 		return "learningStart";
 	}
 
 	@PostMapping("/start")
 	public String startLearningPost(@Valid LearningHour lrngHour, Errors errors, Model model, HttpSession session)
 			throws Exception {
-		// 終了時刻が入力されていないのがないか確認
-		int userId = (Integer) session.getAttribute("id");
-		if (!Objects.isNull(lrngHourService.getDoNotEnd(userId, lrngHour.getStartDate()))) {
-			model.addAttribute("learningHours", lrngHour);
-			User user = userService.getUserById((Integer) session.getAttribute("id"));
-			model.addAttribute("userName", user.getName());
-			return "learningStart";
-		}
-		// 形式を整えてDBに登録
-		lrngHour.setUserId(userId);
+		// 終了時刻が入力されていないデータがないか確認
+		User user = userService.getUserById((Integer) session.getAttribute("id"));
+		lrngHour.setUserId(user.getId());
 		lrngHour.setDateTimeForDisplay(lrngHour.getDateTimeForDisplay().replaceAll("[-T]", ""));
 		lrngHour.setStartDate(lrngHour.getDateTimeForDisplay().substring(0, 8));
 		lrngHour.setStartTime(Time.valueOf(lrngHour.getDateTimeForDisplay().substring(8, 16)));
+		if (!Objects.isNull(lrngHourService.getDoNotEnd(lrngHour.getUserId(), lrngHour.getStartDate()))) {
+			errors.reject("error.null_endDateTime");
+		}
+		if (errors.hasErrors()) {
+			model.addAttribute("learningHour", lrngHour);
+			model.addAttribute("userName", user.getName());
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+			lrngHour.setDateTimeForDisplay(LocalDateTime.now().format(dtf));
+			return "learningStart";
+		}
 		lrngHourService.setStartDateTime(lrngHour);
 		return "redirect:list";
 	}
