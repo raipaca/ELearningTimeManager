@@ -90,6 +90,9 @@ public class UserController {
 		if (userForm.getName().equals("")) {
 			errors.rejectValue("name", "error.user_name_blank");
 		}
+		if (userForm.getName().length() > 10) {
+			errors.rejectValue("name", "error.user_name_size_message");
+		}
 		if (userForm.getChangeLoginPass().equals("") && !userForm.getCheckLoginPass().equals("")) {
 			errors.rejectValue("changeLoginPass", "error.changeLoginPass_blank");
 		}
