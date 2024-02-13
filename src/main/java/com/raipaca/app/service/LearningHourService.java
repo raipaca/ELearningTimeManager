@@ -21,4 +21,7 @@ public interface LearningHourService {
 
 	// ページ分割機能用
 	List<LearningHour> getLearningListPageByUserId(int userId, int page, int numPerPage) throws Exception;
+
+	LearningHour getLearningHourById(int id) throws Exception;
+
 }

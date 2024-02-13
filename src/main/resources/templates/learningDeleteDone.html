@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head th:replace="~{parts/common :: html_head()}"></head>
+<body id="editUserDone">
+<header th:replace="~{parts/widget :: header()}"></header>
+  <div class="text-center mt-4">
+    <h2 class="h5 mt-4">受講時間一覧</h2>
+    <div class="alert alert-success">
+      以下の受講時間を削除しました。
+    </div>
+    <form class="form" action="" method="post" th:object="${lrngHour}">
+      <p class="mt-2">
+        年月日　：<input type="text" th:field="*{dateTimeForDisplay}" disabled>
+      </p>
+      <p class="mt-2">
+        開始時間：<input type="text" th:field="*{startTime}" disabled>
+      </p>
+      <p class="mt-2">
+        終了時間：<input type="text" th:field="*{endTime}" disabled>
+      </p>
+      <p class="mt-2">
+        受講時間：<input type="text" th:field="*{learningTime}" disabled>
+      </p>
+      <a th:href="@{/learning/list}" class="btn btn-light">戻る</a>
+    </form>
+  </div>
+<th:block th:replace="~{parts/common :: javascripts()}"></th:block>
+</body>
+</html>

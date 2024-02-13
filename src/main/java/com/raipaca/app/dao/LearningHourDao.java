@@ -27,4 +27,6 @@ public interface LearningHourDao {
 	List<LearningHour> selectLimitedByUserId(@Param("userId") int userId, @Param("offset") int offset,
 			@Param("num") int num) throws Exception;
 
+	LearningHour selectLearningHourById(int id) throws Exception;
+
 }

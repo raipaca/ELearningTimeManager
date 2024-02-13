@@ -64,4 +64,19 @@
 			user_id = #{userId}
 		LIMIT #{offset}, #{num}
 	</select>
+	<select id="selectLearningHourById" resultType="com.raipaca.app.domain.LearningHour">
+		SELECT
+			id,
+			user_id AS userId,
+			date_format(start_date, '%Y年%m月%d日') AS dateTimeForDisplay,
+			start_date AS startDate,
+			start_time AS startTime,
+			end_date AS endDate,
+			end_time AS endTime,
+			learning_time AS learningTime
+		FROM
+			learning_hours
+		WHERE
+			id = #{id}
+	</select>
 </mapper>

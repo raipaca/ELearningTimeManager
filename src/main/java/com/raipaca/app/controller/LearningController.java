@@ -81,9 +81,22 @@ public class LearningController {
 	}
 
 	@GetMapping("/delete/{listId}")
-	public String learningDataDeleteGet(@PathVariable Integer listId, Model model) throws Exception {
+	public String learningDataDeleteGet(@PathVariable Integer listId, Model model, HttpSession session)
+			throws Exception {
+		LearningHour lrngHour = lrngHourService.getLearningHourById(listId);
+		session.setAttribute("lrngHour", lrngHour);
 		lrngHourService.deleteLearningData(listId);
-		return "learningList";
+		return "redirect:done";
+	}
+
+	@GetMapping("/delete/done")
+	public String learningDeletDoneGet(Model model, HttpSession session) throws Exception {
+		User user = userService.getUserById((Integer) session.getAttribute("id"));
+		model.addAttribute("userName", user.getName());
+		LearningHour lrngHour = (LearningHour) session.getAttribute("lrngHour");
+		session.removeAttribute("lrngHour");
+		model.addAttribute("lrngHour", lrngHour);
+		return "learningDeleteDone";
 	}
 
 	@GetMapping("/end")

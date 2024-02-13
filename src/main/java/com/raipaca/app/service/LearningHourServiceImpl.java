@@ -51,4 +51,9 @@ public class LearningHourServiceImpl implements LearningHourService {
 		return lrngHourDao.selectLimitedByUserId(userId, offset, numPerPage);
 	}
 
+	@Override
+	public LearningHour getLearningHourById(int id) throws Exception {
+		return lrngHourDao.selectLearningHourById(id);
+	}
+
 }
