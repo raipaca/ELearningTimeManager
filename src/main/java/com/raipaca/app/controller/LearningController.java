@@ -116,7 +116,7 @@ public class LearningController {
 		lt = lt.minusHours(Integer.parseInt(startTime.substring(0, 2)));
 		lt = lt.minusMinutes(Integer.parseInt(startTime.substring(3, 5)));
 		lt = lt.minusSeconds(Integer.parseInt(startTime.substring(6, 8)));
-		lrngHour.setLearntingTime(Time.valueOf(lt));
+		lrngHour.setLearningTime(Time.valueOf(lt));
 		lrngHourService.setEndDateTime(lrngHour);
 		return "redirect:list";
 	}

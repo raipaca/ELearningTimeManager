@@ -10,7 +10,7 @@
 			start_time AS startTime,
 			end_date AS endDate,
 			end_time AS endTime,
-			learnting_time AS learntingTime
+			learning_time AS learntngTime
 		FROM
 			learning_hours
 		WHERE
@@ -31,7 +31,7 @@
 			start_time AS startTime,
 			end_date AS endDate,
 			end_time AS endTime,
-			learnting_time AS learntingTime
+			learning_time AS learningTime
 		FROM
 			learning_hours
 		WHERE
@@ -42,7 +42,7 @@
 	</delete>
 	<update id="updateEndDateTime" parameterType="com.raipaca.app.domain.LearningHour">
 		UPDATE learning_hours
-		SET end_date = #{endDate}, end_time = #{endTime}, learnting_time = #{learntingTime}
+		SET end_date = #{endDate}, end_time = #{endTime}, learning_time = #{learntingTime}
 		WHERE id = #{id}
 	</update>
 	<select id="countByUserId" resultType="long">
@@ -57,7 +57,7 @@
 			start_time AS startTime,
 			end_date AS endDate,
 			end_time AS endTime,
-			learnting_time AS learntingTime
+			learning_time AS learningTime
 		FROM
 			learning_hours
 		WHERE

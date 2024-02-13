@@ -21,6 +21,6 @@ public class LearningHour {
 
 	private Time endTime;
 
-	private Time learntingTime;
+	private Time learningTime;
 
 }
